@@ -8,3 +8,4 @@ class UserEndpoints:
         self._create_user = "https://petstore.swagger.io/v2/user"
         self._create_array_of_users = "https://petstore.swagger.io/v2/user/createWithArray"
         self._create_list_of_users = "https://petstore.swagger.io/v2/user/createWithList"
+
