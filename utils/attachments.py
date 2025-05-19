@@ -21,7 +21,7 @@ def log_api(result):
     )
 
     allure.attach(
-        body=json.dumps(json.loads(result.text), indent=4, ensure_ascii=False),
+        body=result.text,
         name='Response',
         attachment_type=AttachmentType.TEXT,
         extension='txt'

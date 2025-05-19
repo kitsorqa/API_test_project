@@ -2,7 +2,6 @@ import allure
 from allure_commons.types import Severity
 
 from services.User.api_user import ApiUser
-from utils.attachments import log_api
 
 api_user = ApiUser()
 
@@ -37,7 +36,7 @@ class TestApiUser:
     @allure.tag("api")
     @allure.severity(Severity.NORMAL)
     def test_delete_user_by_username(self):
-        api_user.delete_user_by_username('mary73')
+        api_user.delete_user_by_username()
 
     @allure.title("Изменение данных о пользователе")
     @allure.tag("api")

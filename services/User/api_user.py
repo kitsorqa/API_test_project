@@ -1,6 +1,3 @@
-import logging
-
-import allure
 import requests
 from allure_commons._allure import step
 
@@ -12,13 +9,14 @@ from utils.attachments import log_api
 
 custom_headers = Headers()
 
+
 class ApiUser:
     def __init__(self):
         self._endpoints = UserEndpoints()
         self._payloads = UserPayloads()
 
-    with step("Создание пользователя, используя рандомную генерацию из валидных значений"):
-        def create_new_user(self):
+    def create_new_user(self):
+        with step("Создание пользователя, используя рандомную генерацию из валидных значений"):
             response = requests.post(
                 url=self._endpoints._create_user,
                 json=self._payloads.create_user()
@@ -27,8 +25,8 @@ class ApiUser:
             model = ResponseUser(**response.json())
             return model
 
-    with step("Авторизация пользователя, используя тестовые валидные данные"):
-        def user_login(self):
+    def user_login(self):
+        with step("Авторизация пользователя, используя тестовые валидные данные"):
             response = requests.get(
                 url=self._endpoints._get_logs_user_into_system,
                 params={"username": "test", "password": "test"},
@@ -37,8 +35,8 @@ class ApiUser:
             model = ResponseUser(**response.json())
             return model
 
-    with step("Разлогин пользователя, используя валидные значения"):
-        def user_logout(self):
+    def user_logout(self):
+        with step("Разлогин пользователя, используя валидные значения"):
             response = requests.get(
                 url=self._endpoints._get_logs_user_into_system,
                 params={"username": "test", "password": "test"},
@@ -47,8 +45,8 @@ class ApiUser:
             model = ResponseUser(**response.json())
             return model
 
-    with step("Получение информации о валидном пользователе по его юзернейму"):
-        def get_user_by_username(self, username='test'):
+    def get_user_by_username(self, username='test'):
+        with step("Получение информации о валидном пользователе по его юзернейму"):
             response = requests.get(
                 url=f"{self._endpoints._get_user_by_username}{username}",
             )
@@ -61,8 +59,8 @@ class ApiUser:
                 model = ResponseUser(**response.json())
                 return model
 
-    with step("Удаление валидного пользователя по его юзернейму"):
-        def delete_user_by_username(self, username='test'):
+    def delete_user_by_username(self, username='mary73'):
+        with step("Удаление валидного пользователя по его юзернейму"):
             response = requests.delete(
                 url=f"{self._endpoints._delete_user}{username}"
             )
@@ -74,8 +72,8 @@ class ApiUser:
             with step("Пользователь не найден"):
                 raise TypeError("Пользователь с таким никнеймом не найден")
 
-    with step("Изменение данных о пользователе"):
-        def change_user_info_by_username(self, username='mary73'):
+    def change_user_info_by_username(self, username='mary73'):
+        with step("Изменение данных о пользователе"):
             response = requests.put(
                 url=f"{self._endpoints._update_user}{username}",
                 json=self._payloads.change_user()
@@ -84,8 +82,8 @@ class ApiUser:
             model = ResponseUser(**response.json())
             return model
 
-    with step("Создание массива пользователей"):
-        def create_users_by_array(self, count_of_users):
+    def create_users_by_array(self, count_of_users):
+        with step("Создание массива пользователей"):
             response = requests.post(
                 url=f"{self._endpoints._create_array_of_users}",
                 json=self._payloads.create_array_of_users(count_of_users),
@@ -94,8 +92,10 @@ class ApiUser:
             log_api(response)
             model = ResponseUser(**response.json())
             return model
-    with step("Создание списка пользователей"):
-        def create_users_by_list(self, count_of_users):
+
+
+    def create_users_by_list(self, count_of_users):
+        with step("Создание списка пользователей"):
             response = requests.post(
                 url=f"{self._endpoints._create_list_of_users}",
                 json=self._payloads.create_array_of_users(count_of_users),
